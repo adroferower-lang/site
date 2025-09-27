@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>f3xploit — Bio</title>
+<style>
+  :root{
+    --bg1:#fff5f8;
+    --bg2:#fff0f6;
+    --accent:#ff6f9a;
+    --muted:#9b6b7a;
+    --glass:rgba(255,255,255,0.66);
+    --shadow:0 18px 40px rgba(200,70,120,0.08);
+    --radius:20px;
+    --mono:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+    --sans:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+
+  html,body{margin:0;padding:0;height:100%;font-family:var(--sans);background:linear-gradient(180deg,var(--bg1),var(--bg2));display:flex;align-items:center;justify-content:center;}
+  
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+      radial-gradient(900px 380px at 8% 12%, rgba(255,240,246,0.9) 0%, transparent 24%),
+      radial-gradient(700px 300px at 92% 88%, rgba(255,233,241,0.9) 0%, transparent 22%);
+    z-index:-1;
+    filter: blur(18px);
+    opacity:.88;
+  }
+
+  .page{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:48px 20px;
+    box-sizing:border-box;
+  }
+
+  .card{
+    width:min(880px,92vw);
+    background: rgba(255,255,255,0.62);
+    backdrop-filter: blur(20px) saturate(1.05);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display:grid;
+    grid-template-columns: 160px 1fr;
+    gap:26px;
+    padding:34px;
+    align-items:center;
+    position:relative;
+    transform-origin:center;
+    animation: fadeIn 760ms cubic-bezier(.2,.9,.2,1) both;
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+
+  @keyframes fadeIn{from{opacity:0; transform:translateY(10px) scale(.998)} to{opacity:1; transform:none}}
+
+  .avatar-wrap{
+    width:160px;height:160px;border-radius:18px;overflow:hidden;box-shadow:0 12px 30px rgba(200,70,120,0.06);
+    display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,245,250,0.45));
+    transition: transform 400ms ease;
+  }
+  .avatar-wrap:hover{transform: translateY(-6px) scale(1.02)}
+  .avatar{width:100%;height:100%;object-fit:cover;display:block;}
+
+  .head{display:flex;flex-direction:column;gap:10px;padding-right:6px;}
+  .nick{font-size:clamp(28px,4.4vw,44px);font-weight:900;color:#2b1520;display:flex;align-items:center;gap:12px;line-height:1;}
+  .tag{
+    background:linear-gradient(90deg,#fff,#fff2f7);
+    border-radius:12px;padding:8px 12px;font-size:13px;font-weight:800;color:#9b244a;
+    box-shadow:0 8px 20px rgba(220,80,140,0.06);
+  }
+  
+  .sub{font-family:var(--mono);font-size:15px;color:var(--muted);min-height:24px;white-space:pre-wrap;max-width:72ch;line-height:1.4;}
+  .cursor{display:inline-block;width:10px;height:18px;background:linear-gradient(180deg,#2c1220,#6a2a3f);margin-left:6px;vertical-align:bottom;border-radius:2px;animation: blink 900ms steps(1) infinite;}
+  @keyframes blink{50%{opacity:0}}
+
+  .float{
+    position:absolute;
+    right:-46px;
+    top:-26px;
+    width:220px;
+    height:80px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,245,250,0.72));
+    border-radius:14px;
+    box-shadow: 0 12px 30px rgba(190,60,120,0.05);
+    padding:12px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:#7b2d4a;
+    transform: rotate(6deg);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:6px;
+    opacity:0;
+    animation: floatIn 900ms 220ms cubic-bezier(.2,.9,.2,1) forwards;
+    border:1px solid rgba(255,255,255,0.55);
+  }
+  @keyframes floatIn{from{opacity:0; transform:translateY(-8px) rotate(6deg)} to{opacity:1; transform:translateY(0) rotate(6deg)}}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff9bb8;margin-right:8px;vertical-align:middle}
+
+  @media (max-width:680px){
+    .card{grid-template-columns:1fr; gap:18px; padding:22px;}
+    .avatar-wrap{width:128px;height:128px;margin:0 auto;}
+    .head{align-items:center;text-align:center;}
+    .float{display:none}
+  }
+
+  .card-floating{will-change: transform;}
+</style>
+</head>
+<body>
+  <div class="page">
+    <main class="card card-floating" role="main" aria-label="Био f3xploit">
+      <div class="avatar-wrap" aria-hidden="true">
+        <img class="avatar" src="https://i.pinimg.com/1200x/1b/e9/d0/1be9d0825325b6f5b3f2ef188c75da80.jpg" alt="avatar f3xploit">
+      </div>
+
+      <div class="head">
+        <div class="nick" aria-hidden="false">
+          <span>f3xploit</span>
+          <span class="tag">самый пиздатый фембой (наверно)</span>
+        </div>
+
+        <div class="sub" id="subtext" aria-live="polite"></div>
+      </div>
+
+      <div class="float" aria-hidden="true">
+        <div>сосал ?</div>
+      </div>
+    </main>
+  </div>
+
+<script>
+(function(){
+  const el=document.getElementById('subtext');
+  const text="мне 14 лет, люблю программировать на C# и Python";
+  let i=0, displayed="";
+  function typeStep(){
+    const base=44;
+    const jitter=(Math.random()*60)-10;
+    const delay=Math.max(18, base+jitter);
+    if(i<text.length){
+      displayed+=text[i];
+      el.textContent=displayed;
+      i++;
+      setTimeout(typeStep,delay);
+    } else {
+      const c=document.createElement('span');
+      c.className='cursor';
+      el.appendChild(c);
+    }
+  }
+  setTimeout(typeStep,420);
+
+  (function gentleFloat(){
+    const card=document.querySelector('.card-floating');
+    let t=0;
+    function tick(){
+      t+=0.01;
+      const x=Math.sin(t*0.9)*0.8;
+      const y=Math.cos(t*0.7)*0.9;
+      const r=Math.sin(t*0.35)*0.2;
+      card.style.transform=`translate3d(${x}px, ${y}px, 0) rotate(${r}deg)`;
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  document.querySelector('.avatar-wrap').addEventListener('click', function(){
+    const url="https://i.pinimg.com/1200x/1b/e9/d0/1be9d0825325b6f5b3f2ef188c75da80.jpg";
+    const a=document.createElement('a');
+    a.href=url;
+    a.download='avatar-f3xploit.jpg';
+    a.rel='noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  });
+})();
+</script>
+</body>
+</html>

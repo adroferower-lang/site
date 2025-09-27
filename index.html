@@ -1,81 +1,128 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>fexploit</title>
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Segoe UI', sans-serif;
-        background: url('https://i.pinimg.com/736x/a4/d3/ab/a4d3ab2a0e99127dca5336b82aa06337.jpg') no-repeat center center/cover;
-        color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+  :root{
+    --bg-url: url('https://i.pinimg.com/736x/a4/d3/ab/a4d3ab2a0e99127dca5336b82aa06337.jpg');
+    --glass: rgba(0,0,0,0.6);
+  }
 
-    .bio-container {
-        background: rgba(0, 0, 0, 0.6);
-        padding: 30px;
-        border-radius: 20px;
-        text-align: center;
-        width: 350px;
-        opacity: 0;
-        transform: translateY(-20px);
-        animation: fadeIn 1s forwards;
-    }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Segoe UI, Roboto, Arial, sans-serif;background:var(--bg-url) center/cover no-repeat;color:#fff}
+  .wrap{
+    min-height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
 
-    .avatar {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin: 0 auto 20px auto;
-        border: 4px solid #fff;
-        transition: transform 0.3s ease;
-    }
+  .card{
+    width:360px;
+    background:var(--glass);
+    border-radius:16px;
+    padding:28px;
+    text-align:center;
+    box-shadow:0 6px 30px rgba(0,0,0,0.5);
+  }
 
-    .avatar img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+  .avatar{
+    width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 18px;border:4px solid #fff;
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block}
 
-    .avatar:hover {
-        transform: scale(1.1) rotate(5deg);
-    }
+  h1{font-size:26px;margin:4px 0 12px;letter-spacing:1px}
+  .typed{
+    display:inline-block;
+    font-weight:700;
+    font-family:inherit;
+    font-size:26px;
+    white-space:nowrap;
+  }
+  /* caret */
+  .caret{
+    display:inline-block;
+    width:2px;
+    height:1.1em;
+    background:#fff;
+    margin-left:6px;
+    vertical-align:middle;
+    animation: blink 700ms steps(1) infinite;
+    opacity:0.95;
+  }
+  @keyframes blink{50%{opacity:0}}
 
-    h1 {
-        font-size: 24px;
-        margin-bottom: 10px;
-    }
+  p{margin:0;font-size:15px;line-height:1.4;color:#eaeaea}
 
-    p {
-        font-size: 16px;
-        line-height: 1.5;
-        word-break: break-word;
-    }
-
-    @keyframes fadeIn {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+  /* небольшая адаптивность */
+  @media (max-width:420px){
+    .card{width:92%}
+    .typed, h1{font-size:20px}
+  }
 </style>
 </head>
 <body>
-
-<div class="bio-container">
-    <div class="avatar">
+  <div class="wrap">
+    <div class="card" aria-live="polite">
+      <div class="avatar">
         <img src="https://i.pinimg.com/736x/49/0e/9f/490e9f1b8db9d815b5aa0937d24dce93.jpg" alt="fexploit">
-    </div>
-    <h1>fexploit</h1>
-    <p>я школьник программист | люблю программировать на Python или C# но на C# я программирую редко</p>
-</div>
+      </div>
 
+      <h1><span class="typed" id="typed"></span><span class="caret" aria-hidden="true"></span></h1>
+      <p>я школьник программист | люблю программировать на Python или C# но на C# я программирую редко</p>
+    </div>
+  </div>
+
+<script>
+  // typing loop: types a string, pauses, deletes it, repeats forever
+  (function(){
+    const text = 'fexploit';
+    const el = document.getElementById('typed');
+
+    const TYPE_SPEED = 120;   // ms per character (typing)
+    const DELETE_SPEED = 60;  // ms per character (deleting)
+    const PAUSE_AFTER = 1000; // pause after full typed
+    const PAUSE_BEFORE = 400; // pause before retyping
+
+    let index = 0;
+    let deleting = false;
+
+    function wait(ms){ return new Promise(res => setTimeout(res, ms)); }
+
+    async function loop(){
+      while(true){
+        if(!deleting){
+          // type
+          if(index < text.length){
+            index++;
+            el.textContent = text.slice(0,index);
+            await wait(TYPE_SPEED + Math.random()*40);
+          } else {
+            // full typed
+            await wait(PAUSE_AFTER);
+            deleting = true;
+          }
+        } else {
+          // delete
+          if(index > 0){
+            index--;
+            el.textContent = text.slice(0,index);
+            await wait(DELETE_SPEED + Math.random()*20);
+          } else {
+            // fully deleted
+            deleting = false;
+            await wait(PAUSE_BEFORE);
+          }
+        }
+      }
+    }
+
+    // start after small initial delay so it looks natural
+    wait(300).then(loop);
+  })();
+</script>
 </body>
 </html>

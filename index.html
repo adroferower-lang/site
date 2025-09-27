@@ -5,22 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Мое Био</title>
 <style>
-    /* Сброс стилей */
-    * {
+    body {
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
         font-family: 'Segoe UI', sans-serif;
-    }
-
-    body {
-        height: 100vh;
+        background: url('https://i.pinimg.com/736x/a4/d3/ab/a4d3ab2a0e99127dca5336b82aa06337.jpg') no-repeat center center/cover;
+        color: #fff;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: url('https://i.pinimg.com/736x/a4/d3/ab/a4d3ab2a0e99127dca5336b82aa06337.jpg') no-repeat center center/cover;
-        color: #fff;
-        overflow: hidden;
+        height: 100vh;
     }
 
     .bio-container {
@@ -29,12 +23,6 @@
         border-radius: 20px;
         text-align: center;
         width: 350px;
-        box-shadow: 0 0 20px rgba(0,0,0,0.7);
-        transition: transform 0.3s ease;
-    }
-
-    .bio-container:hover {
-        transform: scale(1.05);
     }
 
     .avatar {
@@ -44,17 +32,12 @@
         overflow: hidden;
         margin: 0 auto 20px auto;
         border: 4px solid #fff;
-        transition: transform 0.3s ease;
     }
 
     .avatar img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-    }
-
-    .bio-container:hover .avatar {
-        transform: rotate(10deg) scale(1.1);
     }
 
     h1 {
@@ -65,31 +48,6 @@
     p {
         font-size: 16px;
         line-height: 1.5;
-    }
-
-    /* Плавающие частицы фона */
-    .particles {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 0;
-    }
-
-    .particle {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background: rgba(255,255,255,0.6);
-        border-radius: 50%;
-        animation: float 5s linear infinite;
-    }
-
-    @keyframes float {
-        0% { transform: translateY(0) translateX(0); opacity: 1; }
-        100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
     }
 </style>
 </head>
@@ -102,23 +60,6 @@
     <h1>fexploit aka amshit_</h1>
     <p>Любитель сливов, хакерских штук и всяких зашкваров. Учусь в школе, но кодю как бог. Пиздатый во всем, кроме сна и домашки.</p>
 </div>
-
-<div class="particles"></div>
-
-<script>
-    // JS для генерации частиц
-    const particlesContainer = document.querySelector('.particles');
-
-    for(let i = 0; i < 30; i++){
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        particle.style.left = Math.random() * 100 + 'vw';
-        particle.style.width = particle.style.height = (5 + Math.random() * 10) + 'px';
-        particle.style.animationDuration = (3 + Math.random() * 5) + 's';
-        particle.style.opacity = Math.random();
-        particlesContainer.appendChild(particle);
-    }
-</script>
 
 </body>
 </html>
